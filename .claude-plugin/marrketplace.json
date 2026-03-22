@@ -1,0 +1,40 @@
+{
+  "name": "pmm-shared-plugins",
+  "owner": {
+    "name": "Beatrix.Nguyen"
+  },
+  "metadata": {
+    "description": "This is a collection of product marketing skills and product knowledge for GreenNode AI Cloud products, designed to assist with product, account manager teams to utilize from product knowledge and product marrketing materials production.",
+    "version": "1.0.0",
+    "repository": "https://github.com/beatrix2699/pmm-shared-plugins"
+  },
+  "plugins": [
+    {
+      "name": "ai-agentbase-skills",
+      "description": "Skills for product marketing and AM team to produce best materials from AI AgentBase product knowledge.",
+      "source": "./",
+      "strict": false,
+      "skills": [
+        "./skills/sale-enablement"
+      ]
+    },
+    {
+      "name": "video-skills",
+      "description": "Skills for product marketing to produce video material series for GreenNode AI Cloud products, such as product explainers, how-to guides, and feature highlights, leveraging the video-planner skill to create structured video content plans and scripts based on product knowledge and marketing goals",
+      "source": "./",
+      "strict": false,
+      "skills": [
+        "./skills/video-planner"
+      ]
+    },
+    {  
+      "name": "slide-deck-skills",
+      "description": "Skills for product marketing to produce slide decks for GreenNode AI Cloud products, such as proposal deck, presentation deck, training deck and more based on product knowledge and marketing goals",
+      "source": "./",
+      "strict": false,
+      "skills": [
+        "./skills/slide-deck-planner"
+      ]
+    }
+  ]
+}
