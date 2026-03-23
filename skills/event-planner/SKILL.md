@@ -1,11 +1,9 @@
 ---
 name: event-planner
-description: Plan and run B2B tech events — industry workshops, internal product workshops, and community contests — for GreenNode and related VNG ecosystem brands. Outputs master files, event rundowns, staff assignments, and communication timelines.
+description: Use when planning, structuring, or running any B2B tech event for GreenNode or the VNG ecosystem. Triggers on "event plan," "workshop," "sự kiện," "contest plan," "event rundown," "staff assignment," "lên kế hoạch sự kiện," or any request to organize or produce planning materials for an industry workshop, internal product demo, or community writing contest.
 ---
 
 # Event Planner Skill
-
-Use this skill when the user wants to plan, structure, or run any event: industry workshops, internal product demos, community writing contests, or similar B2B tech events in Vietnam.
 
 ---
 
