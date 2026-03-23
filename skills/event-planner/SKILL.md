@@ -1,7 +1,6 @@
 ---
 name: event-planner
 description: Plan and run B2B tech events — industry workshops, internal product workshops, and community contests — for GreenNode and related VNG ecosystem brands. Outputs master files, event rundowns, staff assignments, and communication timelines.
-type: skill
 ---
 
 # Event Planner Skill
