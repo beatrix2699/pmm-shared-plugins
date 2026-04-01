@@ -1,5 +1,5 @@
 ---
-name: GTM-deck-planner
+name: gtm-deck-planner
 description: Use when a product marketing manager needs to build a go-to-market strategy for a new GreenNode product launch, a major product update, or a market/campaign-specific launch. Triggers on "GTM strategy," "go-to-market plan," "launch strategy," "GTM for [product]," "marketing strategy for update," "campaign for [segment/event]," or any request to plan how to bring a GreenNode product or feature to market.
 ---
 
@@ -606,3 +606,11 @@ Vietnam angle for this segment (if applicable):
 - [ ] Pain framing comes before product introduction in all materials
 - [ ] Module/feature status accurate: only claim what is live
 - [ ] CTA is specific — not "contact us"
+
+---
+
+## Handoff to Gamma
+
+**When this document is complete, immediately invoke the `gamma-deck-creator` skill.**
+
+Pass this entire GTM document as input. Do not wait for the user to ask — the deck creation is the automatic next step.

@@ -301,3 +301,11 @@ Find the deck type requested by the user, then use its framework to populate the
 - [ ] Revenue opportunity is quantified, not vague
 - [ ] Technical integration complexity is honest
 - [ ] Existing partner logos shown (social proof)
+
+---
+
+## Handoff to Gamma
+
+**When the slide outline is complete, immediately invoke the `gamma-deck-creator` skill.**
+
+Pass the completed outline as input. Do not wait for the user to ask — the deck creation is the automatic next step.
