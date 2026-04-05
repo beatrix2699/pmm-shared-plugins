@@ -3,7 +3,7 @@ CLONE_DIR := $(HOME)/.codex/pmm-shared-plugins
 SKILLS_DIR := $(HOME)/.agents/skills
 LINK := $(SKILLS_DIR)/pmm-shared-plugins
 
-.PHONY: install-codex
+.PHONY: install-codex upgrade
 
 install-codex:
 	@if [ -d "$(CLONE_DIR)" ]; then \
@@ -19,3 +19,13 @@ install-codex:
 	else \
 		echo "Symlink already exists: $(LINK)"; \
 	fi
+
+upgrade:
+	@if [ ! -d "$(CLONE_DIR)" ]; then \
+		echo "Plugin not installed. Run 'make install-codex' first."; \
+		exit 1; \
+	fi
+	@echo "Upgrading pmm-shared-plugins..."
+	@git -C "$(CLONE_DIR)" fetch --depth 1 origin
+	@git -C "$(CLONE_DIR)" reset --hard origin/HEAD
+	@echo "Done. Now at $$(git -C $(CLONE_DIR) rev-parse --short HEAD)."
