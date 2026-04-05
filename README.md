@@ -4,3 +4,11 @@ git clone https://github.com/beatrix2699/pmm-shared-plugins ~/.codex/pmm-shared-
 mkdir -p ~/.agents/skills
 ln -s ~/.codex/pmm-shared-plugins ~/.agents/skills/pmm-shared-plugins
 ```
+
+To upgrade this skill, following these steps:
+```bash
+# make sure exit codex cli
+make upgrade
+
+# login codex again
+```
