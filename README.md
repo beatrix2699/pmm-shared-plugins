@@ -5,7 +5,7 @@ mkdir -p ~/.agents/skills
 ln -s ~/.codex/pmm-shared-plugins ~/.agents/skills/pmm-shared-plugins
 ```
 
-To upgrade this skill, following these steps:
+To upgrade this skill, follow these steps:
 ```bash
 # make sure exit codex cli
 make upgrade
