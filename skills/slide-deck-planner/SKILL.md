@@ -1,3 +1,18 @@
+---
+name: slide-deck-planner
+description: >
+  Generate a detailed slide planning blueprint for GreenNode marketing presentations.
+  Use when the GreenNode marketing team needs to plan or outline a new deck: sales pitches,
+  product demos, webinars, case studies, technical reviews, battlecards, or partnership decks.
+  Trigger on: "tạo dàn bài slide", "lên kế hoạch slide", "chuẩn bị deck", "slide plan",
+  "pitch deck", "sales deck", "demo deck", "làm slide cho", "cần deck cho", "prepare slides",
+  "plan a presentation", or any request combining GreenNode products (IDP, Cloud, GPU) with
+  an industry (Banking, Insurance, Gaming, Logistics, Retail, E-commerce, F&B, Education).
+  Also trigger for: "webinar", "hội thảo", "demo day", "họp với khách hàng", "campaign mới".
+  Produces an actionable slide-by-slide outline plus production checklists a designer and
+  content writer can use directly.
+---
+
 # Slide Type Frameworks
 
 ## How to use this file
