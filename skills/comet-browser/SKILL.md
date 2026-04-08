@@ -1,6 +1,12 @@
 ---
 name: comet-browser
-description: Use when the user wants live web research, competitor pricing, screenshots, or any task requiring real browser access — including login-walled pages, dynamic content, or agentic multi-step browsing. Triggers: "check the website", "look up live pricing", "research competitors", "take a screenshot", "search for current data", or any task needing up-to-date web information beyond Claude's knowledge.
+description: >-
+  Use when the user wants live web research, competitor pricing, screenshots,
+  or any task requiring real browser access — including login-walled pages,
+  dynamic content, or agentic multi-step browsing. Triggers: "check the website",
+  "look up live pricing", "research competitors", "take a screenshot",
+  "search for current data", or any task needing up-to-date web information
+  beyond Claude's knowledge.
 ---
 
 # Comet Browser
