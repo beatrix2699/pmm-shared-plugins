@@ -23,7 +23,9 @@ claude
 
 /plugin marketplace add beatrix2699/pmm-shared-plugins
 
-claude # Now you can use the skills in this collection!
+claude 
+
+# Now you can use the skills in this collection!
 ```
 
 ### Local plugins

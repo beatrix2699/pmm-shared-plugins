@@ -23,9 +23,10 @@ This skill is the **final step** in any planning pipeline:
 ```
 video-planner        ──┐
 gtm-deck-planner     ──┤
-event-planner        ──┼──▶  lark-task-creator  ──▶  Lark app (deep-link)
-sales-enablement     ──┤
-launch-strategy      ──┘
+event-planner        ──┤
+sales-enablement     ──┼──▶  lark-task-creator  ──▶  Lark app (deep-link)
+launch-strategy      ──┤
+content-strategy     ──┘
 ```
 
 When an upstream skill finishes, offer to push tasks to Lark immediately.
