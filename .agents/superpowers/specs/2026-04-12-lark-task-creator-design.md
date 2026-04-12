@@ -86,10 +86,9 @@ Display the full structure as a markdown outline. Ask:
 Do NOT call any Lark API until the user confirms.
 
 ### Step 4 — Execute (in order)
-1. Resolve self user ID via `contact.v3.user.batchGetId` (if not already cached in config)
-2. Create each Tasklist under the appropriate Group
-3. Create Tasks inside each Tasklist, assigned to self
-4. Create Sub-tasks with `parent_id` pointing to their parent Task, assigned to self
+1. Create each Tasklist under the appropriate Group
+2. Create Tasks inside each Tasklist, assigned to self (OAuth user token = implicit self, no ID lookup needed)
+3. Create Sub-tasks with `parent_id` pointing to their parent Task, assigned to self
 
 ### Step 5 — Report
 Output a summary table:
@@ -114,6 +113,21 @@ User opens manually in the Lark app. No auto-open via browser automation.
 ### Server: `lark-openapi-mcp`
 **Source:** `/Users/lap15291/Documents/GitHub/lark-openapi-mcp`
 
+**Authentication: OAuth + User Access Token**
+Use `--oauth` and `--token-mode user_access_token` so the MCP server authenticates as the user directly. This means:
+- No org admin approval needed for personal task operations
+- "Self" is implicit — no need to look up or store a user ID
+- Tasklist IDs are discovered dynamically on first run via `task.v2.tasklist.list`
+
+**One-time login (run once in terminal):**
+```bash
+npx @larksuiteoapi/lark-mcp login \
+  -a cli_a950d41d2f61de18 \
+  -s 9oGe02CjwDLXIOS0lpbsNcsDbTjJoD8E \
+  --domain https://open.larksuite.com
+```
+This opens a browser OAuth flow and caches your user token locally.
+
 **Registration in Claude config:**
 ```json
 {
@@ -122,10 +136,12 @@ User opens manually in the Lark app. No auto-open via browser automation.
       "command": "npx",
       "args": [
         "-y", "@larksuiteoapi/lark-mcp", "mcp",
-        "-a", "<APP_ID>",
-        "-s", "<APP_SECRET>",
+        "-a", "cli_a950d41d2f61de18",
+        "-s", "9oGe02CjwDLXIOS0lpbsNcsDbTjJoD8E",
         "--domain", "https://open.larksuite.com",
-        "-t", "preset.task.default,contact.v3.user.batchGetId,task.v2.tasklist.create"
+        "--oauth",
+        "--token-mode", "user_access_token",
+        "-t", "preset.task.default,task.v2.tasklist.create,task.v2.tasklist.list"
       ]
     }
   }
@@ -136,20 +152,25 @@ User opens manually in the Lark app. No auto-open via browser automation.
 
 | Tool | Purpose |
 |------|---------|
+| `task.v2.tasklist.list` | Discover Group → Tasklist ID mapping on first run |
 | `task.v2.tasklist.create` | Create Tasklist (campaign) under a Group |
 | `task.v2.task.create` | Create Task or Sub-task |
-| `contact.v3.user.batchGetId` | Resolve self user ID from email |
 | `task.v2.task.list` | Optional: check for duplicate tasks |
+
+> `contact.v3.user.batchGetId` is **not needed** — OAuth user token identifies self implicitly.
 
 ### Skill Config Block (inside SKILL.md)
 ```yaml
-lark_user_id: <your_lark_user_id>   # resolved once, cached
+# No user ID needed — OAuth token = self
+# Group IDs discovered on first run via task.v2.tasklist.list
 groups:
-  AI AgentBase:  <tasklist_group_id>
-  GreenNode IDP: <tasklist_group_id>
-  AI Cloud:      <tasklist_group_id>
-  Others:        <tasklist_group_id>
+  AI AgentBase:  <discovered_on_first_run>
+  GreenNode IDP: <discovered_on_first_run>
+  AI Cloud:      <discovered_on_first_run>
+  Others:        <discovered_on_first_run>
 ```
+
+**First-run bootstrap:** If any Group ID is blank, the skill calls `task.v2.tasklist.list`, displays the results, asks the user to confirm which Tasklist Group corresponds to each product area, then saves the IDs into the config block.
 
 ---
 
@@ -161,7 +182,7 @@ groups:
 | Tasklist creation fails | Report error, do not proceed to task creation |
 | Task creation fails | Log failed task name, continue with remaining tasks, report all failures at end |
 | Sub-task creation fails | Log and report, parent task still considered created |
-| User ID not resolved | Stop, prompt user to add `lark_user_id` to skill config |
+| OAuth token expired | Prompt user to re-run `npx @larksuiteoapi/lark-mcp login` to refresh token |
 
 ---
 
