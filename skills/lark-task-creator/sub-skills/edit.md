@@ -54,6 +54,7 @@ args:
   summary: "[new title]"              # omit if not changing
   description: "[new description]"    # omit if not changing
   due: { timestamp: "[ISO8601]" }     # omit if not changing
+  members: [{ id: "[user_id]", role: "assignee" }]   # omit if not changing; use sub-skills/assign.md to resolve user_id
 ```
 
 **Mark complete:**
