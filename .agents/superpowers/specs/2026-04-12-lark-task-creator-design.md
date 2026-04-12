@@ -7,13 +7,36 @@
 
 ## Overview
 
-A single skill (`lark-task-creator`) that creates tasks in Lark Suite via the `lark-openapi-mcp` MCP server. Handles three modes — quick (single task from a sentence), bulk (from a free-form plan or markdown doc), and pipeline (triggered at the end of an upstream skill). All tasks are always assigned to the current user (self). Every mode requires a preview of the full task structure before any Lark API call is made.
+A single skill (`lark-task-creator`) that manages tasks in Lark Suite via the `lark-openapi-mcp` MCP server. Handles three invocation modes — quick (single task from a sentence), bulk (from a free-form plan or markdown doc), and pipeline (triggered at the end of an upstream skill). Supports full task CRUD, assignment to self or teammates, and reminders. Every mode requires a preview of the full task structure before any Lark API call is made.
+
+**Phased delivery:**
+- **v1 (this spec):** Task CRUD + bulk/pipeline creation + assign self/others + reminders
+- **v2 (future):** Calendar events linked to tasks and campaigns
+- **v3 (future):** Lark Docs linking + Bitable record creation
+
+---
+
+## Skill Structure
+
+The skill is split into a parent orchestrator and focused sub-skills to keep each file manageable:
+
+```
+skills/lark-task-creator/
+├── SKILL.md                  ← parent: mode detection, routing, config, first-run bootstrap
+├── sub-skills/
+│   ├── create.md             ← bulk/quick/pipeline task creation (4-level hierarchy)
+│   ├── edit.md               ← edit, delete, mark complete/incomplete
+│   ├── assign.md             ← assignee resolution (name search + email fallback)
+│   └── reminders.md          ← reminder creation on tasks with due dates
+```
+
+The parent `SKILL.md` handles mode detection and delegates to the relevant sub-skill. Sub-skills reference back to the parent for config values (Group IDs, OAuth token).
 
 ---
 
 ## Architecture
 
-### Single SKILL.md — Auto Mode Detection
+### Parent SKILL.md — Auto Mode Detection
 
 Mode is inferred from invocation context. No explicit flag needed.
 
@@ -22,6 +45,7 @@ Mode is inferred from invocation context. No explicit flag needed.
 | **Quick** | Short natural language: *"create a Lark task: X"* | Build 1-task structure → preview → execute |
 | **Bulk** | Free-form plan or markdown doc provided in message | AI extracts all tasks → build full structure → preview → execute |
 | **Pipeline** | Upstream skill output already in conversation context | Parse structured output → build full structure → preview → execute |
+| **Edit** | *"update Lark task X"*, *"mark X as done"*, *"delete task X"* | Fetch task → show current state → confirm change → execute |
 
 **Upstream skills that can trigger pipeline mode:**
 - `video-planner` — production milestone tables (episode × phase)
@@ -86,9 +110,29 @@ Display the full structure as a markdown outline. Ask:
 Do NOT call any Lark API until the user confirms.
 
 ### Step 4 — Execute (in order)
+
+**Create mode:**
 1. Create each Tasklist under the appropriate Group
-2. Create Tasks inside each Tasklist, assigned to self (OAuth user token = implicit self, no ID lookup needed)
-3. Create Sub-tasks with `parent_id` pointing to their parent Task, assigned to self
+2. Create Tasks inside each Tasklist, assigned to self or specified teammates
+3. Create Sub-tasks with `parent_id` pointing to their parent Task
+4. Add reminders if due dates are present (via `task.v2.task.addReminders`)
+
+**Edit mode:**
+1. Fetch task by ID or name search via `task.v2.task.list`
+2. Show current state, confirm the change with the user
+3. Apply update via `task.v2.task.patch` (title, description, due date, assignees, status)
+
+**Delete mode:**
+1. Fetch task, show task name + sub-task count for confirmation
+2. Delete sub-tasks first, then parent task via `task.v2.task.delete`
+
+**Mark complete/incomplete:**
+1. Fetch task, call `task.v2.task.patch` with `completed_at` field set or cleared
+
+**Assignee resolution (when assigning to others):**
+- Try name search first via `contact.v3.user.list` or `search.v2`
+- Fall back to email lookup via `contact.v3.user.batchGetId` if name search yields no match
+- Show resolved name + confirm before assigning
 
 ### Step 5 — Report
 Output a summary table:
@@ -155,9 +199,14 @@ This opens a browser OAuth flow and caches your user token locally.
 | `task.v2.tasklist.list` | Discover Group → Tasklist ID mapping on first run |
 | `task.v2.tasklist.create` | Create Tasklist (campaign) under a Group |
 | `task.v2.task.create` | Create Task or Sub-task |
-| `task.v2.task.list` | Optional: check for duplicate tasks |
+| `task.v2.task.patch` | Edit task (title, description, due date, assignees, status, complete) |
+| `task.v2.task.delete` | Delete task or sub-task |
+| `task.v2.task.list` | Search tasks by name or list within a Tasklist |
+| `task.v2.task.addMembers` | Add assignees to a task |
+| `task.v2.task.addReminders` | Set reminders on tasks with due dates |
+| `contact.v3.user.batchGetId` | Resolve teammate email → Lark user ID (may need admin approval) |
 
-> `contact.v3.user.batchGetId` is **not needed** — OAuth user token identifies self implicitly.
+> Self-assignment uses OAuth user token implicitly — no user ID lookup needed for self.
 
 ### Skill Config Block (inside SKILL.md)
 ```yaml
@@ -189,18 +238,18 @@ groups:
 ## Skill Trigger Phrases
 
 The skill activates on:
-- "create Lark task"
-- "add to Lark tasks"
-- "create tasks in Lark"
-- "push to Lark"
-- "save to Lark"
+- "create Lark task", "add to Lark tasks", "create tasks in Lark", "push to Lark", "save to Lark"
+- "update Lark task", "edit Lark task", "change due date on", "mark as done", "complete task"
+- "delete Lark task", "remove task from Lark"
+- "assign task to [name/email]"
+- "add reminder to task"
 - Implicit: when upstream skill (video-planner, gtm-deck-planner, event-planner, etc.) completes and user says "create tasks" or "add to Lark"
 
 ---
 
-## Out of Scope
+## Out of Scope (v1)
 
-- Editing or deleting existing Lark tasks (read-only after creation)
-- Assigning tasks to other users (always self)
-- Calendar or reminder creation
-- Lark Docs or Bitable integration
+- Calendar events linked to tasks (v2)
+- Lark Docs linking + Bitable record creation (v3)
+- Bulk editing or deleting multiple tasks at once
+- Task dependencies or blocking relationships
