@@ -20,7 +20,7 @@ Parse the plan file and load:
 - All asset entries with their current `status`
 
 Build the execution queue:
-- Default (`--resume`): assets where `status` is `pending`, `failed`, or `timeout`
+- `--resume` flag: assets where `status` is `pending`, `failed`, or `timeout`
 - `--retry-failed` flag: only assets where `status` is `failed` or `timeout`
 - No flag + fresh plan: all `pending` assets
 
