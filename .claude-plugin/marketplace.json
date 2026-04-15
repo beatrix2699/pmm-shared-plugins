@@ -29,6 +29,7 @@
     {
       "name": "data-skills",
       "description": "Skills for product marketing/strategist to analyze data and generate insights for GreenNode AI Cloud products, such as analytics tracking, churn prevention, form CRO, onboarding CRO, and revops based on product knowledge and marketing goals",
+      "source": "./",
       "strict": false,
       "skills": [
         "./skills/analytics-tracking",
@@ -66,7 +67,7 @@
       "skills": [
         "./skills/product-marketing-context",
         "./skills/competitor-alternatives",
-        "./skills/sale-enablement"
+        "./skills/sales-enablement"
 
       ]
     }
