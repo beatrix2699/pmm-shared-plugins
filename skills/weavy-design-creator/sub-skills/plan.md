@@ -42,7 +42,9 @@ Ask for the following in order. One question at a time. Skip any field the user 
 
 ## Step 3 — Build System Prompt
 
-Using the collected brief and locked params, generate the campaign system_prompt using the template from `references/weavy-nodes.md` § System Prompt Template:
+Using the collected brief and locked params, generate the campaign system_prompt using the template from `references/weavy-nodes.md` § System Prompt Template.
+
+Fill the template from `references/weavy-nodes.md` § System Prompt Template as follows: `[campaign_name]` → campaign name, `[primary_colors hex list]` → primary colors joined by comma (e.g., `#6B2FFA, #1A1A2E`), `[negative_prompts]` → full negative prompts string.
 
 ```
 You are generating visuals for [campaign.name].
