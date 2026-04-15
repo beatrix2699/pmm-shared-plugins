@@ -1,0 +1,18 @@
+{
+  "mcpServers": {
+    "lark": {
+      "type": "stdio",
+      "command": "npx",
+      "args": [
+        "-y",
+        "@larksuiteoapi/lark-mcp",
+        "mcp",
+        "-a",
+        "cli_a950d41d2f61de18",
+        "-s",
+        "9oGe02CjwDLXIOS0lpbsNcsDbTjJoD8E"
+      ],
+      "env": {}
+    }
+  }
+}
