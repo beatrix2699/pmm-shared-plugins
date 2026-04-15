@@ -20,7 +20,7 @@ Parse the plan file and load:
 - All asset entries with their current `status`
 
 Build the execution queue:
-- `--resume` flag: assets where `status` is `pending`, `failed`, or `timeout`
+- `--resume` flag: assets where `status` is `pending`, `failed`, `timeout`, or `running` (treat `running` as failed — indicates a previous session crashed mid-execution)
 - `--retry-failed` flag: only assets where `status` is `failed` or `timeout`
 - No flag + fresh plan: all `pending` assets
 
@@ -72,6 +72,8 @@ Manual guide saved to .agents/superpowers/plans/campaign-guide-[slug]-[date].md
 
 Then exit.
 
+> **Note:** Manual mode does not update asset statuses in the plan file. To track progress, edit the plan file directly and change `status: pending` to `status: done` for completed assets. This ensures `--resume` skips them correctly.
+
 ---
 
 ## Step 4 — Chrome Auto Mode: Approval Gate
@@ -101,7 +103,7 @@ For each asset in the execution queue, show the asset card and wait for input:
 ```
 Asset [asset.id] ([index] of [total])
 ─────────────────────────────────────
-Content: "[first 100 chars of matching content piece raw_content]..."
+Content: "[first 80 chars of content piece description from plan file]..."
 Format:  [asset.format]
 Prompt:  "[asset.generated_prompt]"
 System:  "[first 120 chars of asset.system_prompt]..."
@@ -127,6 +129,8 @@ Handle each response:
 - User types replacement. Store as `asset.generated_prompt`
 - Write `status: edited` to plan file
 - Then execute Step 6 with the edited prompt
+  - On success → write `status: done`
+  - On failure → write `status: failed` + error message (the edited prompt is preserved in the plan file)
 
 **`q` Quit:**
 - Write current progress (all statuses updated so far) to plan file
