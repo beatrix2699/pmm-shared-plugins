@@ -8,7 +8,9 @@
       "WebFetch(domain:gamma.app)",
       "Bash(curl -s -X GET \"https://mcp.gamma.app/mcp\" -H \"Authorization: Bearer sk-gamma-0CJKLLxBVNtSKnozA2YNXR5cARHNkcHeAxkP3Mys4g\" -H \"Content-Type: application/json\")",
       "WebFetch(domain:help.gamma.app)",
-      "Bash(curl -s -X POST https://mcp.gamma.app/mcp -H 'x-api-key: sk-gamma-0CJKLLxBVNtSKnozA2YNXR5cARHNkcHeAxkP3Mys4g' -H 'Content-Type: application/json' -H 'Accept: application/json, text/event-stream' -d '{\"jsonrpc\":\"2.0\",\"id\":2,\"method\":\"tools/list\",\"params\":{}}')"
+      "Bash(curl -s -X POST https://mcp.gamma.app/mcp -H 'x-api-key: sk-gamma-0CJKLLxBVNtSKnozA2YNXR5cARHNkcHeAxkP3Mys4g' -H 'Content-Type: application/json' -H 'Accept: application/json, text/event-stream' -d '{\"jsonrpc\":\"2.0\",\"id\":2,\"method\":\"tools/list\",\"params\":{}}')",
+      "Skill(update-config)",
+      "Skill(update-config:*)"
     ]
   }
 }
