@@ -30,7 +30,7 @@ skills/weavy-design-creator/
 ├── sub-skills/run.md           ← Phase 2: manual guide + Chrome automation
 └── references/weavy-nodes.md  ← Weavy node types, prompt patterns, system prompt templates
 
-.agents/superpowers/plans/
+docs/superpowers/plans/
 ├── campaign-plan-{name}-{date}.md     ← generated plan file
 ├── campaign-guide-{name}-{date}.md    ← manual execution guide
 └── outputs/
@@ -48,7 +48,7 @@ skills/weavy-design-creator/
 3. LLM generates one asset entry per `content_piece × aspect_ratio`
 4. Show total asset count + cost estimate
 5. User confirms before saving
-6. Save plan to `.agents/superpowers/plans/campaign-plan-{name}-{date}.md`
+6. Save plan to `docs/superpowers/plans/campaign-plan-{name}-{date}.md`
 
 ### Phase 2 — Execute
 
@@ -145,7 +145,7 @@ Save plan? (y/n)
 
 ### Output
 
-Saved to: `.agents/superpowers/plans/campaign-plan-{name}-{date}.md`
+Saved to: `docs/superpowers/plans/campaign-plan-{name}-{date}.md`
 
 ---
 
@@ -177,7 +177,7 @@ Outputs numbered checklist per asset:
 5. Click Run → save output as cp-01-1x1.png
 ```
 
-Full guide saved to: `.agents/superpowers/plans/campaign-guide-{name}-{date}.md`
+Full guide saved to: `docs/superpowers/plans/campaign-guide-{name}-{date}.md`
 
 ### Chrome Auto Mode
 
@@ -223,7 +223,7 @@ Cost:    medium
 5. fill             → aspect ratio selector with format
 6. click            → Run button
 7. wait_for         → output image appears (timeout: 120s)
-8. take_screenshot  → .agents/superpowers/plans/outputs/{asset_id}.png
+8. take_screenshot  → docs/superpowers/plans/outputs/{asset_id}.png
 9. Update plan      → status: "done"
 ```
 
@@ -235,7 +235,7 @@ Campaign: GreenNode April Launch
 ⚠ Failed:   3 assets  → re-run: /weavy-design-creator run --retry-failed
 → Skipped:  3 assets
 
-Outputs: .agents/superpowers/plans/outputs/
+Outputs: docs/superpowers/plans/outputs/
 ```
 
 ---
