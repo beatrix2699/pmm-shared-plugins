@@ -46,7 +46,7 @@ Determine which phase to enter based on these signals (in priority order):
 | "run campaign" or "run designs" or "execute plan" | Load plan file → Run Phase |
 | Plan file exists in `.agents/superpowers/plans/campaign-plan-*.md` AND user says "run" | Run Phase |
 | "plan campaign" or "plan designs" or first invocation with no plan file | Plan Phase |
-| Upstream skill output in conversation + "create designs" / "make images" | Plan Phase (content pre-filled from upstream) |
+| Upstream skill output in conversation + "create designs" / "make images" / "generate images for posts" | Plan Phase (content pre-filled from upstream) |
 | Ambiguous — can't determine phase | Ask: "Do you want to plan a new campaign or run an existing one?" |
 
 ## Routing
