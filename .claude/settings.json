@@ -12,7 +12,8 @@
       "Skill(update-config)",
       "Skill(update-config:*)",
       "Bash(git add *)",
-      "Bash(git commit -m ' *)"
+      "Bash(git commit -m ' *)",
+      "mcp__comet__comet_poll"
     ]
   }
 }

@@ -164,15 +164,18 @@ Use the `generate` tool via direct HTTP (see Step 1 for connection pattern).
 
 ## Step 5 — Auto-open in Comet browser
 
-Immediately after `gamma_publish` returns the URL:
+Immediately after the deck URL is returned:
 
-1. Call `comet_connect` to ensure Comet browser is running
-2. Call `comet_ask` with:
+1. Call `comet_ask` directly with:
    ```
-   prompt: "Open this URL and show me the deck: [deck_url]"
+   prompt: "Open this URL in a new tab and show me the deck: [deck_url]"
+   newChat: false
    ```
 
-If Comet is not connected (comet_connect fails):
+Do NOT call `comet_connect` — it auto-starts a new session and closes all existing tabs.
+Use `comet_ask` directly so the existing browser session is reused without interruption.
+
+If `comet_ask` fails (Comet is not running):
 > "Comet browser isn't running. Open [deck_url] manually in your browser."
 
 ---
@@ -199,5 +202,6 @@ Review needed (if any):
 | Asking user to reformat the plan | Accept gtm-deck-planner / slide-deck-planner output as-is |
 | Putting full tables into bullet cards | Use table card type — preserve column headers |
 | Stacking 3+ metrics on one stat card | One metric per card |
-| Opening Comet before deck is published | Always get deck_url first, then comet_connect |
-| Skipping Comet step if URL exists | Always attempt Comet open — fallback to manual link if unavailable |
+| Opening Comet before deck is published | Always get deck_url first, then call comet_ask |
+| Calling comet_connect before opening | Never call comet_connect — it closes all existing tabs; use comet_ask directly |
+| Skipping Comet step if URL exists | Always attempt comet_ask — fallback to manual link if unavailable |

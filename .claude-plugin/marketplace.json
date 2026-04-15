@@ -36,7 +36,8 @@
         "./skills/churn-prevention",
         "./skills/form-cro",
         "./skills/onboarding-cro",
-        "./skills/revops"
+        "./skills/revops",
+        "./skills/notebooklm-research"
 
 
       ]
