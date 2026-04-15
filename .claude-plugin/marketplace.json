@@ -10,30 +10,64 @@
   },
   "plugins": [
     {
-      "name": "ai-agentbase-skills",
-      "description": "Skills for product marketing and AM team to produce best materials from AI AgentBase product knowledge.",
+      "name": "strategy-skills",
+      "description": "Skills for product marketing/strategist to produce marketing plan and strategy for GreenNode AI Cloud products, such as content strategy, event planning, free tool strategy, launch strategy, slide deck planning, GTM deck planning, and video content planning based on product knowledge and marketing goals",
       "source": "./",
       "strict": false,
       "skills": [
-        "./skills/sale-enablement"
+        "./skills/content-strategy",
+        "./skills/event-planner",
+        "./skills/free-tool-strategy",
+        "./skills/launch-strategy",
+        "./skills/slide-deck-planner",
+        "./skills/gtm-deck-planner",
+        "./skills/video-planner"
+
+
       ]
     },
     {
-      "name": "video-skills",
-      "description": "Skills for product marketing to produce video material series for GreenNode AI Cloud products, such as product explainers, how-to guides, and feature highlights, leveraging the video-planner skill to create structured video content plans and scripts based on product knowledge and marketing goals",
+      "name": "data-skills",
+      "description": "Skills for product marketing/strategist to analyze data and generate insights for GreenNode AI Cloud products, such as analytics tracking, churn prevention, form CRO, onboarding CRO, and revops based on product knowledge and marketing goals",
+      "strict": false,
+      "skills": [
+        "./skills/analytics-tracking",
+        "./skills/churn-prevention",
+        "./skills/form-cro",
+        "./skills/onboarding-cro",
+        "./skills/revops"
+
+
+      ]
+      
+    },
+    {
+      "name": "marketing-skills",
+      "description": "Skills for marketer to produce marketing materials for GreenNode AI Cloud products, such as product one-pagers, case studies, blog posts, and more based on product knowledge and marketing goals",
       "source": "./",
       "strict": false,
       "skills": [
-        "./skills/video-planner"
+        "./skills/marketing-ideas",
+        "./skills/cold-email",
+        "./skills/email-sequence",
+        "./skills/gamma-deck-creator",
+        "./skills/lark-task-creator",
+        "./skills/referral-program",
+        "./skills/social-content"
+
+
       ]
     },
-    {  
-      "name": "slide-deck-skills",
-      "description": "Skills for product marketing to produce slide decks for GreenNode AI Cloud products, such as proposal deck, presentation deck, training deck and more based on product knowledge and marketing goals",
+    {
+      "name": "product-marketing-skills",
+      "description": "Skills for product marketing/strategist to create and execute product marketing initiatives for GreenNode AI Cloud products, such as product positioning, messaging, and go-to-market strategies based on product knowledge and marketing goals",
       "source": "./",
       "strict": false,
       "skills": [
-        "./skills/slide-deck-planner"
+        "./skills/product-marketing-context",
+        "./skills/competitor-alternatives",
+        "./skills/sale-enablement"
+
       ]
     }
   ]
