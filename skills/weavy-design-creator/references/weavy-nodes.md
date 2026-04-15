@@ -19,7 +19,7 @@ Fill this template for each campaign. Keep the final string under 200 tokens.
 
 ```
 You are generating visuals for [campaign_name].
-Style: [brief]. Colors: [hex list]. Avoid: [negative_prompts].
+Style: [brief]. Colors: [primary_colors hex list]. Avoid: [negative_prompts].
 Maintain visual consistency across all assets in this campaign.
 ```
 
@@ -41,6 +41,9 @@ Build prompts in this order:
 Keep under 120 tokens. Longer prompts reduce model coherence.
 
 ## Prompt Patterns by Campaign Type
+
+Choose the pattern whose label best matches `campaign.brief` keywords and `content_piece.intent`.
+For ambiguous briefs, default to **GPU / Tech Product** when the client is GreenNode, **Product Launch** otherwise.
 
 ### Product Launch
 ```
