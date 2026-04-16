@@ -1,0 +1,66 @@
+{
+  "skill_name": "icp-research",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Help me define our ICP. We have 40 customers mostly in AI startups and research labs.",
+      "assertions": [
+        "Checks for product-marketing-context.md first",
+        "Selects Mode A (Define ICP) or asks to confirm",
+        "Asks for customer list with attributes before calling icp_deep_dive",
+        "Asks which customers are the 'best' fits",
+        "Calls icp_deep_dive with customer_data",
+        "Calls buyer_group_analyzer after",
+        "Outputs a structured ICP definition with firmographic and technographic signals",
+        "Offers to save to .agents/icp-profile.md"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "I have a list of 200 accounts. Help me prioritize which to go after first.",
+      "assertions": [
+        "Selects Mode B (Score & Prioritize)",
+        "Reads existing ICP from icp-profile.md or asks for ICP attributes",
+        "Calls icp_scoring_model",
+        "Calls account_prioritization with the account list",
+        "Delivers tiered output: Tier 1/2/3",
+        "Offers to create Lark tasks for Tier 1 accounts"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Calculate our TAM SAM SOM for a board presentation.",
+      "assertions": [
+        "Selects Mode D (Market Sizing)",
+        "Asks for or reads product description, target segments, pricing, and geography",
+        "Calls tam_sam_som_calculator with all required inputs",
+        "Presents TAM, SAM, SOM with clear assumptions",
+        "Notes that assumptions are defensible for investor/board use"
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "I have notes from 10 customer interviews. Can you pull out ICP patterns?",
+      "assertions": [
+        "Selects Mode F (Interview Synthesis)",
+        "Asks user to provide interview notes or paste them",
+        "Asks for interview type (discovery, win, loss, churn)",
+        "Calls icp_interview_synthesizer",
+        "Surfaces pain points, triggers, customer language, and fit signals",
+        "Offers to update product-marketing-context.md with customer language"
+      ]
+    },
+    {
+      "id": 5,
+      "prompt": "Generate LinkedIn targeting criteria based on our ICP.",
+      "assertions": [
+        "Selects Mode E (Lookalike & Ad Targeting)",
+        "Reads ICP from icp-profile.md or asks user to describe it",
+        "Confirms LinkedIn as the platform",
+        "Asks for budget tier",
+        "Calls lookalike_signal_generator with icp_profile and platforms=['linkedin']",
+        "Delivers job titles, seniority, company size, industry, and skills filters"
+      ]
+    }
+  ]
+}

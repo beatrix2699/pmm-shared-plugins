@@ -1,5 +1,23 @@
 {
   "mcpServers": {
+    "gamma": {
+      "type": "stdio",
+      "command": "npx",
+      "args": ["-y", "gamma-mcp"],
+      "env": {
+        "GAMMA_API_KEY": "sk-gamma-EghaUbmyrPahSRmFJiV9OoDDYEKE2weGG1P2uabf9sM"
+      }
+    },
+    "icp-intelligence": {
+      "type": "stdio",
+      "command": "npx",
+      "args": ["-y", "@shashwatgtmalpha/icp-intelligence-mcp"],
+      "env": {}
+    },
+    "figma-mcp": {
+      "type": "sse",
+      "url": "http://localhost:8787/sse"
+    },
     "lark": {
       "type": "stdio",
       "command": "npx",
