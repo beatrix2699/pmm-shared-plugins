@@ -1,11 +1,11 @@
 ---
 name: gamma-deck-creator
-description: Use when converting a slide plan or GTM strategy document into a Gamma presentation. Triggers after slide-deck-planner or gtm-deck-planner output is complete, or when user says "create in Gamma", "build the deck in Gamma", "make this a Gamma presentation", or "turn this into slides". Also auto-opens the result in Comet browser.
+description: Use when converting a slide plan or GTM strategy document into a Gamma presentation. Triggers after slide-deck-planner or gtm-deck-planner output is complete, or when user says "create in Gamma", "build the deck in Gamma", "make this a Gamma presentation", or "turn this into slides". Also auto-opens the result in the default browser.
 ---
 
 # Gamma Deck Creator
 
-Convert structured slide plans into published Gamma presentations, then auto-open the result in Comet browser.
+Convert structured slide plans into published Gamma presentations, then auto-open the result in the default browser.
 
 ## Pipeline Position
 
@@ -13,7 +13,7 @@ This skill is the **final step** in the deck creation pipeline:
 
 ```
 gtm-deck-planner  ──┐
-                    ├──▶  gamma-deck-creator  ──▶  Comet browser (auto-open)
+                    ├──▶  gamma-deck-creator  ──▶  default browser (auto-open)
 slide-deck-planner ──┘
 ```
 
@@ -162,21 +162,18 @@ Use the `generate` tool via direct HTTP (see Step 1 for connection pattern).
 
 ---
 
-## Step 5 — Auto-open in Comet browser
+## Step 5 — Auto-open in default browser
 
 Immediately after the deck URL is returned:
 
-1. Call `comet_ask` directly with:
+1. Open the URL in the system default browser using:
+   ```bash
+   open "[deck_url]"
    ```
-   prompt: "Open this URL in a new tab and show me the deck: [deck_url]"
-   newChat: false
-   ```
+   (On macOS this uses the default browser. On Linux use `xdg-open`; on Windows use `start`.)
 
-Do NOT call `comet_connect` — it auto-starts a new session and closes all existing tabs.
-Use `comet_ask` directly so the existing browser session is reused without interruption.
-
-If `comet_ask` fails (Comet is not running):
-> "Comet browser isn't running. Open [deck_url] manually in your browser."
+If the command fails:
+> "Could not open the browser automatically. Open [deck_url] manually in your browser."
 
 ---
 
@@ -185,7 +182,7 @@ If `comet_ask` fails (Comet is not running):
 ```
 ✅ Deck created: [Deck Title]
 🔗 [gamma_url]
-📊 [N] cards — now open in Comet
+📊 [N] cards — now open in your browser
 
 Review needed (if any):
 - Card [N] ([title]): image placeholder — add actual diagram
@@ -202,6 +199,5 @@ Review needed (if any):
 | Asking user to reformat the plan | Accept gtm-deck-planner / slide-deck-planner output as-is |
 | Putting full tables into bullet cards | Use table card type — preserve column headers |
 | Stacking 3+ metrics on one stat card | One metric per card |
-| Opening Comet before deck is published | Always get deck_url first, then call comet_ask |
-| Calling comet_connect before opening | Never call comet_connect — it closes all existing tabs; use comet_ask directly |
-| Skipping Comet step if URL exists | Always attempt comet_ask — fallback to manual link if unavailable |
+| Opening browser before deck is published | Always get deck_url first, then run `open` |
+| Skipping browser step if URL exists | Always attempt `open [deck_url]` — fallback to manual link if it fails |
